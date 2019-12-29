@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  proxy: 
+    container_name: proxy
+    restart: always
+    image: debian:jessie
+    ports: 
+      - "80:80"
+    networks: 
+      - frontend
+      - backend
+    tty: true
+
+
+server:
+  container_name: server
+  restart: always
+  image: yeasy/simple-web:latest
+  privileged: true
+  networks: 
+    - backend
+  tty: true
+
+networks: 
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
