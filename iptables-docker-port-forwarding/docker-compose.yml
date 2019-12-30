@@ -12,7 +12,6 @@ services:
       - backend
     tty: true
 
-
 server:
   container_name: server
   restart: always
