@@ -15,8 +15,11 @@ services:
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.1.1
+    restart: always
+    command: logstash -f /config-dir/logstash.conf
     depends_on: 
       - elasticsearch
+      - kafka1
     ports:
       - 12201:12201/udp
     volumes:
@@ -28,6 +31,9 @@ services:
     image: docker.elastic.co/kibana/kibana:7.1.1
     depends_on:
       - logstash
+    # volumes:
+    #   - "./kibana.yml:/usr/share/kibana/config/kibana.yml"
+    restart: always
     ports: 
       - 5601:5601
     networks: 
@@ -45,6 +51,8 @@ services:
     volumes:
       - ./zk-single-kafka-single/zoo1/data:/data
       - ./zk-single-kafka-single/zoo1/datalog:/datalog
+    networks: 
+      - logging-network
 
   kafka1:
     image: confluentinc/cp-kafka:5.3.1
@@ -63,7 +71,9 @@ services:
       - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
-      
+    networks: 
+      - logging-network
+
   filebeat:
     image: docker.elastic.co/beats/filebeat:5.4.3
     volumes:
@@ -83,6 +93,8 @@ services:
       - "80:80"
     depends_on:
       - logstash
+    networks: 
+      - logging-network
 
 networks: 
   logging-network:

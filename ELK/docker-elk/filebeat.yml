@@ -18,7 +18,7 @@ filebeat.prospectors:
   fields_under_root: true
 
 output.kafka:
-  hosts: ["kafka1:9092", "kafka2:9092", "kafka3:9092"]
+  hosts: ["kafka1:9092"]
   topic: 'log'
   partition.round_robin:
     reachable_only: false
