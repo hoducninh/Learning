@@ -18,10 +18,10 @@ filebeat.prospectors:
   fields_under_root: true
 
 output.kafka:
-  hosts: ["kafka1:9092"]
+  hosts: ["kafka1:9092", "kafka2:9093", "kafka3:9094"]
   topic: 'log'
   partition.round_robin:
-    reachable_only: false
+    reachable_only: true
   required_acks: 1
   compression: gzip
   max_message_bytes: 1000000
