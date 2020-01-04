@@ -9,3 +9,4 @@ Note when running the docker-compose:
 - set the config for docker components 
 - creat the kafka topics in the running time 
 - set the permission for volume of docker in the host machine (or the docker will exit because of the permission)
+- with the components in the same network, we could call services by its name (EX: kafka:9091, zoo:2181,...)
