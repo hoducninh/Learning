@@ -180,6 +180,17 @@ services:
     networks: 
       - logging-network
 
+  jupyter:
+    image: docker-compose-data-science_jupyter:latest 
+    container_name: jupyter-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - "./notebooks:/notebooks" 
+      - "./data:/data"
+    networks:
+      - logging-network
+
 networks: 
   logging-network:
     driver: bridge
